@@ -66,7 +66,7 @@ structures::ArrayStack<T>::ArrayStack(size_t max) {
 
 template<typename T>
 structures::ArrayStack<T>::~ArrayStack() {
-    delete *contents;
+    delete [] contents;
 }
 
 template<typename T>
