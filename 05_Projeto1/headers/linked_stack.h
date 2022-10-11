@@ -1,5 +1,10 @@
 // COPYRIGHT [2022] EDUARDO PEROTTONI
 
+
+// QUESTÕES IMPORTANTES: 
+//// QUANDO DOU UM DELETE NO NÓ, O NÓ -> DATA() É DESALOCADO (estou utilizando uma linked_stack de char *)?
+//// VOU UTILIZAR UMA LINKED_STACK DE CHAR *. PRECISO ME PREOCUPAR COM ALOCAÇÃO DO NÓ -> DATA()?
+
 #ifndef STRUCTURES_LINKED_STACK_H
 #define STRUCTURES_LINKED_STACK_H
 
@@ -18,9 +23,9 @@ class LinkedStack {
     // limpa pilha
     void clear();
     // empilha
-    void push(const T& data);
+    virtual void push(const T& data);
     // desempilha
-    T pop();
+    virtual T pop();
     // dado no topo
     T& top() const;
     // pilha vazia
@@ -34,32 +39,26 @@ class LinkedStack {
         explicit Node(const T& data):
             data_{data}
         {}
-
         Node(const T& data, Node* next):
             data_{data},
             next_{next}
         {}
-
         // getter: info
         T& data() {
             return data_;
         }
-
         // getter-constante: info
         const T& data() const {
             return data_;
         }
-
         // getter: próximo
         Node* next() {
             return next_;
         }
-
         // getter-constante: próximo
         const Node* next() const {
             return next_;
         }
-
         // setter: próximo
         void next(Node* node) {
             next_ = node;
@@ -74,6 +73,16 @@ class LinkedStack {
     Node* top_{nullptr};
     // tamanho
     std::size_t size_{0u};
+};
+
+class LinkedStackString : private LinkedStack<char *> {
+ public:
+    // Construtor
+    LinkedStackString(): LinkedStack() {}
+    // Destrutor
+    ~LinkedStackString();
+    // Limpa a pilhas
+
 };
 
 }  // namespace structures
@@ -102,6 +111,8 @@ void structures::LinkedStack<T>::clear() {
 template<typename T>
 void structures::LinkedStack<T>::push(const T &data) {
     Node *new_node = new Node(data, top_);
+    if (new_node == nullptr)
+        throw std::out_of_range("pilha cheia");
     top_ = new_node;
     size_++;
 }
