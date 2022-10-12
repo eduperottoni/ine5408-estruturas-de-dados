@@ -5,26 +5,26 @@
 
 using namespace std;
 
+// Biblioteca para escrita/leitura de arquivos
+#include <fstream>
+
 int main() {
 
-    //char xmlfilename[100];
+    char xmlfilename[100];
 
-    //std::cin >> xmlfilename;  // entrada
-    
-    /*
-     
-       COLOQUE SEU CODIGO AQUI
-    
-    */
-    structures::LinkedStack<string> tag_stack;
+    // Leitura do arquivo
+    cin >> xmlfilename;
+    ifstream xml_file(xmlfilename);
 
-    tag_stack.push("testando");
-    tag_stack.push("teste2");
-    cout << tag_stack.pop() << endl;
-    cout << tag_stack.pop() << endl;
-    cout << tag_stack.top() << endl;
-
-    //std::cout << xmlfilename << std::endl;  // esta linha deve ser removida
+    string line;
+    if (xml_file.is_open()){
+        while (getline(xml_file, line)) {
+            cout << line << '\n';
+        }
+        xml_file.close();
+    } else {
+        cout << "Arquivo não pode ser lido"; 
+    }
 
     return 0;
 }
