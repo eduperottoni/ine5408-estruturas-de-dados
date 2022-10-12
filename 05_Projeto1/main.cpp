@@ -24,15 +24,25 @@ int main() {
         }
         xml_file.close();
     } else {
-        cout << "Arquivo não pode ser lido"; 
+        cout << "Arquivo não pode ser lido" << endl;
+        return 0;
     }
 
     XMLFileReader xml_reader = XMLFileReader(xml_string);
 
-    if (xml_reader.xml_validation()) {
+    if (xml_reader.validate_xml()) {
         cout << "Arquivo válido" << endl;
+        xml::image_infos images_array[xml_reader.count_images()];
+        xml_reader.generate_bin_images(images_array);
+        for (int i = 0; i < xml_reader.count_images(); i++) {
+            cout << images_array[i].name << endl;
+            cout << images_array[i].height << endl;
+            cout << images_array[i].width << endl;
+            cout << images_array[i].data << endl;
+        }
+        cout << "A partir do images_array chamar as funções de XMLReader e trabalhar nas matrizes" << endl;
     } else {
-        cout << "Arquivo inválido" << endl;
+        cout << "error" << endl;
     }
 
     return 0;
