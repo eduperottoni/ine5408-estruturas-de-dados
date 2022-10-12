@@ -1,10 +1,5 @@
 // COPYRIGHT [2022] EDUARDO PEROTTONI
 
-
-// QUESTÕES IMPORTANTES: 
-//// QUANDO DOU UM DELETE NO NÓ, O NÓ -> DATA() É DESALOCADO (estou utilizando uma linked_stack de char *)?
-//// VOU UTILIZAR UMA LINKED_STACK DE CHAR *. PRECISO ME PREOCUPAR COM ALOCAÇÃO DO NÓ -> DATA()?
-
 #ifndef STRUCTURES_LINKED_STACK_H
 #define STRUCTURES_LINKED_STACK_H
 
@@ -13,7 +8,7 @@
 
 namespace structures {
 
-template<typename T>
+template <typename T>
 class LinkedStack {
  public:
     // Construtor
@@ -36,13 +31,9 @@ class LinkedStack {
  private:
     class Node {
      public:
-        explicit Node(const T& data):
-            data_{data}
-        {}
-        Node(const T& data, Node* next):
-            data_{data},
-            next_{next}
-        {}
+        explicit Node(const T& data) : data_{data} {}
+        Node(const T& data, Node* next) : data_{data},
+                                          next_{next} {}
         // getter: info
         T& data() {
             return data_;
@@ -75,74 +66,64 @@ class LinkedStack {
     std::size_t size_{0u};
 };
 
-class LinkedStackString : private LinkedStack<char *> {
- public:
-    // Construtor
-    LinkedStackString(): LinkedStack() {}
-    // Destrutor
-    ~LinkedStackString();
-    // Limpa a pilhas
-
-};
-
 }  // namespace structures
 
 #endif  // include structures
 
 // IMPLEMENTAÇÃO DOS MÉTODOS
 
-template<typename T>
+template <typename T>
 structures::LinkedStack<T>::LinkedStack() {
     top_ = nullptr;
     size_ = 0;
 }
 
-template<typename T>
+template <typename T>
 structures::LinkedStack<T>::~LinkedStack() {
     clear();
 }
 
-template<typename T>
+template <typename T>
 void structures::LinkedStack<T>::clear() {
     while (!empty())
         pop();
 }
 
-template<typename T>
-void structures::LinkedStack<T>::push(const T &data) {
-    Node *new_node = new Node(data, top_);
+template <typename T>
+void structures::LinkedStack<T>::push(const T& data) {
+    Node* new_node = new Node(data, top_);
     if (new_node == nullptr)
         throw std::out_of_range("pilha cheia");
     top_ = new_node;
     size_++;
 }
 
-template<typename T>
+template <typename T>
 T structures::LinkedStack<T>::pop() {
     if (empty())
         throw std::out_of_range("pilha vazia");
 
-    Node *aux = top_;
-    top_ = top_ -> next();
-    T data = aux -> data();
+    Node* aux = top_;
+    top_ = top_->next();
+    T data = aux->data();
     delete aux;
     size_--;
     return data;
 }
 
-template<typename T>
+template <typename T>
 T& structures::LinkedStack<T>::top() const {
     if (empty())
         throw std::out_of_range("lista vazia");
-    return top_ -> data();
+    return top_->data();
 }
 
-template<typename T>
+template <typename T>
 bool structures::LinkedStack<T>::empty() const {
     return (size_ == 0);
 }
 
-template<typename T>
+template <typename T>
 size_t structures::LinkedStack<T>::size() const {
     return size_;
 }

@@ -4,6 +4,7 @@
 #define XMLFILEREADER_H
 
 #include <string>
+
 #include "linked_stack.h"
 
 using namespace std;
@@ -62,28 +63,28 @@ bool xml::XMLFileReader::validate_xml() {
         }
 
         string tag_name = xml_.substr(start + 1, (end - (start + 1)));
- 
-        //cout << tag_name << '\n';
+
+        // cout << tag_name << '\n';
 
         if (tag_name[0] != '/') {
             tags_stack.push(tag_name);
-            //cout << "empilhei:  " << tag_name << endl;
-        } else if (tags_stack.top() == tag_name.substr(1, (tag_name.length() - 1))){
-            //cout << "desempilhei: " << tag_name << endl;
+            // cout << "empilhei:  " << tag_name << endl;
+        } else if (tags_stack.top() == tag_name.substr(1, (tag_name.length() - 1))) {
+            // cout << "desempilhei: " << tag_name << endl;
             tags_stack.pop();
         } else {
             return false;
         }
         start = end;
     }
-    
+
     return tags_stack.empty();
 }
 
 void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
     if (validate_xml()) {
         int images_count = count_images();
-        cout << images_count << " imagens no arquivo" <<endl;
+        cout << images_count << " imagens no arquivo" << endl;
         image_infos images[images_count];
         size_t pos = 0;
         for (int i = 0; i < images_count; i++) {
@@ -109,16 +110,16 @@ string xml::XMLFileReader::catch_inside_tag(const string& start_tag, const strin
     return content;
 }
 
-int xml::XMLFileReader::count_tag_occurrance(const string& sub){
+int xml::XMLFileReader::count_tag_occurrance(const string& sub) {
     if (validate_xml()) {
         int count = 0;
         for (size_t offset = xml_.find(sub); offset != string::npos;
-        offset = xml_.find(sub, offset + sub.length())) {
+             offset = xml_.find(sub, offset + sub.length())) {
             ++count;
         }
         return count;
     }
-    return - 1;
+    return -1;
 }
 
 int xml::XMLFileReader::count_images() {

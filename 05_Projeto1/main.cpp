@@ -3,22 +3,22 @@
 
 // Biblioteca para escrita/leitura de arquivos
 #include <fstream>
-#include "headers/XMLFileReader.h"
 
+#include "headers/XMLFileReader.h"
 
 using namespace std;
 using namespace xml;
 
 int main() {
-
-    char xmlfilename[100];
+    string xmlfilename;
 
     // Leitura do arquivo
     cin >> xmlfilename;
+    xmlfilename = "datasets/dataset" + xmlfilename + ".xml";
     ifstream xml_file(xmlfilename);
     string xml_string;
     string line;
-    if (xml_file.is_open()){
+    if (xml_file.is_open()) {
         while (getline(xml_file, line)) {
             xml_string += line;
         }
@@ -27,7 +27,6 @@ int main() {
         cout << "Arquivo não pode ser lido" << endl;
         return 0;
     }
-
     XMLFileReader xml_reader = XMLFileReader(xml_string);
 
     if (xml_reader.validate_xml()) {
@@ -41,7 +40,7 @@ int main() {
         //     cout << images_array[i].width << endl;
         //     cout << images_array[i].data << endl;
         // }
-        
+
     } else {
         cout << "error" << endl;
     }
