@@ -59,7 +59,7 @@ class LinkedQueue {
         }
 
         // @return data: dado armazenado pelo no nodo
-        const T& data () const {
+        const T& data() const {
             return data_;
         }
 
@@ -138,7 +138,6 @@ T structures::LinkedQueue<T>::dequeue() {
     T data = aux->data();
 
     head = aux->next();
-    
     delete aux;
     size_--;
 
@@ -147,11 +146,19 @@ T structures::LinkedQueue<T>::dequeue() {
 
 template <typename T>
 T& structures::LinkedQueue<T>::back() {
+    if (empty()) {
+        throw std::out_of_range("Lista vazia");
+    }
+
     return tail->data();
 }
 
 template <typename T>
 T& structures::LinkedQueue<T>::front() {
+    if (empty()) {
+        throw std::out_of_range("Lista vazia");
+    }
+
     return head->data();
 }
 
@@ -170,5 +177,5 @@ std::size_t structures::LinkedQueue<T>::size() {
 
 template <typename T>
 bool structures::LinkedQueue<T>::empty() {
-    return (size_ == 0);
+    return (size() == 0);
 }
