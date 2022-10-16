@@ -160,6 +160,7 @@ void structures::ArrayList<T>::remove(const T& data) {
     for (int i = 0; i < static_cast<int>(size_); i++)
         if (contents[i] == data) {
             pop(i);
+            break;
         }
 }
 
