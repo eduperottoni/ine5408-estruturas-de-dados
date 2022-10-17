@@ -6,7 +6,8 @@
 using namespace std;
 
 typedef struct {
-    string name, data;
+    string name;
+    int** matrix;
     size_t height, width;
 } image_infos;
 

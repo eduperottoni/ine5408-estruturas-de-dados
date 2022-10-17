@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 
+#include <cstdlib>
 #include "image_infos.h"
 #include "linked_stack.h"
 
@@ -89,7 +90,26 @@ void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
             mx_infos.name = catch_inside_tag("<name>", "</name>", pos);
             mx_infos.height = (size_t)(stoi(catch_inside_tag("<height>", "</height>", pos)));
             mx_infos.width = (size_t)(stoi(catch_inside_tag("<width>", "</width>", pos)));
-            mx_infos.data = catch_inside_tag("<data>", "</data>", pos);
+            
+            // criação da matriz a qual a imagem sera copiada
+            mx_infos.matrix = new int*[mx_infos.height];
+
+            mx_infos.matrix[0] = new int[mx_infos.height * mx_infos.width];
+            for (int i = 1; i < mx_infos.height; i++) {
+                mx_infos.matrix[i] = mx_infos.matrix[0] + i * mx_infos.width;
+            } 
+
+            // imagem lida
+            string imagem = catch_inside_tag("<data>", "</data>", pos);
+
+            // converte a imagem binaria de string para vetor de inteiro
+            int position = 0;
+            for (int linha = 0; linha < mx_infos.height; linha++) {
+                for (int coluna = 0; coluna < mx_infos.width; coluna++) {
+                    mx_infos.matrix[linha][coluna] = int(imagem[position])-'0';
+                    position++;
+                }
+            }
 
             vector[i] = mx_infos;
         }

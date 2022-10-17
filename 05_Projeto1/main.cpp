@@ -38,7 +38,13 @@ int main() {
             cout << images_array[i].name << endl;
             cout << images_array[i].height << endl;
             cout << images_array[i].width << endl;
-            cout << images_array[i].data << endl;
+            cout << *images_array[i].matrix[0] << endl;
+            for (int j = 0; j < images_array[i].height; j++) {
+                for (int k = 0; k < images_array[i].width; k++) {
+                    cout << images_array[i].matrix[j][k] ;
+                }
+                cout << endl;
+            }
         }
 
     } else {
