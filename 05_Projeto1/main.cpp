@@ -31,7 +31,7 @@ int main() {
 
     if (xml_reader.validate_xml()) {
         cout << "Arquivo válido" << endl;
-        xml::image_infos images_array[xml_reader.count_images()];
+        image_infos images_array[xml_reader.count_images()];
         xml_reader.generate_bin_images(images_array);
 
         for (int i = 0; i < xml_reader.count_images(); i++) {

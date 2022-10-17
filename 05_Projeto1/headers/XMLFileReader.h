@@ -3,19 +3,16 @@
 #ifndef XMLFILEREADER_H
 #define XMLFILEREADER_H
 
+#include <iostream>
 #include <string>
 
+#include "image_infos.h"
 #include "linked_stack.h"
 
 using namespace std;
 using namespace structures;
 
 namespace xml {
-
-typedef struct {
-    string name, data;
-    size_t height, width;
-} image_infos;
 
 // Classe que lida com o processamento do XML
 class XMLFileReader {
@@ -86,9 +83,9 @@ void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
         int images_count = count_images();
         cout << images_count << " imagens no arquivo" << endl;
         image_infos images[images_count];
-        size_t pos = 0;
+        size_t pos = 0;  //? variavel necessaria? nao tem seu valor atualizado, sempre como 0
         for (int i = 0; i < images_count; i++) {
-            xml::image_infos mx_infos;
+            image_infos mx_infos;
             mx_infos.name = catch_inside_tag("<name>", "</name>", pos);
             mx_infos.height = (size_t)(stoi(catch_inside_tag("<height>", "</height>", pos)));
             mx_infos.width = (size_t)(stoi(catch_inside_tag("<width>", "</width>", pos)));
@@ -105,12 +102,13 @@ string xml::XMLFileReader::catch_inside_tag(const string& start_tag, const strin
     size_t end = xml_.find(end_tag, start);
 
     string content = xml_.substr(start + start_tag.length(), (end - (start + start_tag.length())));
-    pos = end + end_tag.length();
+    pos = end + end_tag.length();  //? precisa atualizar o valo? nao é retornado e nem usado depois
 
     return content;
 }
 
 int xml::XMLFileReader::count_tag_occurrance(const string& sub) {
+    //? verificacao desnecessaria ? (metodo apenas usado dentro de generate_bin_images, que já faz essa verificacação)
     if (validate_xml()) {
         int count = 0;
         for (size_t offset = xml_.find(sub); offset != string::npos;
