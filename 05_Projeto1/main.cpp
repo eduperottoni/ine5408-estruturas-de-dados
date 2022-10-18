@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "headers/XMLFileReader.h"
+#include "headers/Labeler.h"
 
 using namespace std;
 using namespace xml;
@@ -38,14 +39,22 @@ int main() {
             cout << images_array[i].name << endl;
             cout << images_array[i].height << endl;
             cout << images_array[i].width << endl;
-            cout << *images_array[i].matrix[0] << endl;
-            for (int j = 0; j < images_array[i].height; j++) {
-                for (int k = 0; k < images_array[i].width; k++) {
-                    cout << images_array[i].matrix[j][k] ;
-                }
-                cout << endl;
-            }
+
+            // printa todas imagens lidas do arquivo
+            // for (int j = 0; j < images_array[i].height; j++) {
+            //     for (int k = 0; k < images_array[i].width; k++) {
+            //         cout << images_array[i].matrix[j][k] ;
+            //     }
+            //     cout << endl;
+            // }
         }
+
+    for (int i = 0; i < xml_reader.count_images(); i++) {
+    Labeler label_teste = Labeler(images_array[i]);
+    int label_img1 = label_teste.create_label();
+
+    cout << label_img1 << " regioes" << endl;
+    }
 
     } else {
         cout << "error" << endl;

@@ -93,14 +93,32 @@ void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
             
             // criação da matriz a qual a imagem sera copiada
             mx_infos.matrix = new int*[mx_infos.height];
-
-            mx_infos.matrix[0] = new int[mx_infos.height * mx_infos.width];
-            for (int i = 1; i < mx_infos.height; i++) {
-                mx_infos.matrix[i] = mx_infos.matrix[0] + i * mx_infos.width;
-            } 
+            for (int i = 0; i < mx_infos.height; i++) {
+                mx_infos.matrix[i] = new int[mx_infos.width];
+                for (int j = 0; j < mx_infos.width; j++) {
+                    mx_infos.matrix[i][j] = 0;
+                }
+            }
 
             // imagem lida
             string imagem = catch_inside_tag("<data>", "</data>", pos);
+
+            //!!!! FORMA ALTERNATIVA DE TRANSFORMAR A MATRIZ EM INT
+            // foreach / for ... in (python)
+            // int width = 0, height = 0;
+            // for(char p : imagem) {
+            //     if (isspace(p)) continue;
+            //     mx_infos.matrix[height][width] = p - '0';
+
+
+            //     width++;
+            //     if (width >=  mx_infos.width) {
+            //         width = 0;
+            //         height++;
+
+            //         if (height > mx_infos.height) break;
+            //     }
+            // }
 
             // converte a imagem binaria de string para vetor de inteiro
             int position = 0;
