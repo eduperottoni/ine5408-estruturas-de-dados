@@ -42,8 +42,9 @@ int Labeler::create_label() {
     int rotulo = 1;
 
     // matriz inicialmente com valor 0 em todas posições
-    int labeled_matrix[image_info.height][image_info.width];
+    int** labeled_matrix = new int*[image_info.height];
     for (int i = 0; i < image_info.height; i++) {
+        labeled_matrix[i] = new int[image_info.width];
         for (int j = 0; j < image_info.width; j++) {
             labeled_matrix[i][j] = 0;
         }
