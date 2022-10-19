@@ -3,10 +3,10 @@
 #ifndef XMLFILEREADER_H
 #define XMLFILEREADER_H
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
-#include <cstdlib>
 #include "image_infos.h"
 #include "linked_stack.h"
 
@@ -62,13 +62,9 @@ bool xml::XMLFileReader::validate_xml() {
 
         string tag_name = xml_.substr(start + 1, (end - (start + 1)));
 
-        // cout << tag_name << '\n';
-
         if (tag_name[0] != '/') {
             tags_stack.push(tag_name);
-            // cout << "empilhei:  " << tag_name << endl;
         } else if (tags_stack.top() == tag_name.substr(1, (tag_name.length() - 1))) {
-            // cout << "desempilhei: " << tag_name << endl;
             tags_stack.pop();
         } else {
             return false;
@@ -82,15 +78,15 @@ bool xml::XMLFileReader::validate_xml() {
 void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
     if (validate_xml()) {
         int images_count = count_images();
-        cout << images_count << " imagens no arquivo" << endl;
+        
         image_infos images[images_count];
-        size_t pos = 0;  //? variavel necessaria? nao tem seu valor atualizado, sempre como 0
+        size_t pos = 0;
         for (int i = 0; i < images_count; i++) {
             image_infos mx_infos;
             mx_infos.name = catch_inside_tag("<name>", "</name>", pos);
             mx_infos.height = (size_t)(stoi(catch_inside_tag("<height>", "</height>", pos)));
             mx_infos.width = (size_t)(stoi(catch_inside_tag("<width>", "</width>", pos)));
-            
+
             // criação da matriz a qual a imagem sera copiada
             mx_infos.matrix = new int*[mx_infos.height];
             for (int i = 0; i < mx_infos.height; i++) {
@@ -103,28 +99,11 @@ void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
             // imagem lida
             string imagem = catch_inside_tag("<data>", "</data>", pos);
 
-            //!!!! FORMA ALTERNATIVA DE TRANSFORMAR A MATRIZ EM INT
-            // foreach / for ... in (python)
-            // int width = 0, height = 0;
-            // for(char p : imagem) {
-            //     if (isspace(p)) continue;
-            //     mx_infos.matrix[height][width] = p - '0';
-
-
-            //     width++;
-            //     if (width >=  mx_infos.width) {
-            //         width = 0;
-            //         height++;
-
-            //         if (height > mx_infos.height) break;
-            //     }
-            // }
-
             // converte a imagem binaria de string para vetor de inteiro
             int position = 0;
             for (int linha = 0; linha < mx_infos.height; linha++) {
                 for (int coluna = 0; coluna < mx_infos.width; coluna++) {
-                    mx_infos.matrix[linha][coluna] = int(imagem[position])-'0';
+                    mx_infos.matrix[linha][coluna] = int(imagem[position]) - '0';
                     position++;
                 }
             }
@@ -140,13 +119,12 @@ string xml::XMLFileReader::catch_inside_tag(const string& start_tag, const strin
     size_t end = xml_.find(end_tag, start);
 
     string content = xml_.substr(start + start_tag.length(), (end - (start + start_tag.length())));
-    pos = end + end_tag.length();  //? precisa atualizar o valo? nao é retornado e nem usado depois
+    pos = end + end_tag.length();
 
     return content;
 }
 
 int xml::XMLFileReader::count_tag_occurrance(const string& sub) {
-    //? verificacao desnecessaria ? (metodo apenas usado dentro de generate_bin_images, que já faz essa verificacação)
     if (validate_xml()) {
         int count = 0;
         for (size_t offset = xml_.find(sub); offset != string::npos;

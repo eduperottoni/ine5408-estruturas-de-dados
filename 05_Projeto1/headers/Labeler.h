@@ -12,7 +12,7 @@ using namespace std;
 using namespace structures;
 
 class Labeler {
-   public:
+ public:
     /*
         Construtor da classe que faz rotulação de imagem
         @param image_info: struct contendo imagem e suas informações
@@ -25,7 +25,7 @@ class Labeler {
     */
     int create_label();
 
-   private:
+ private:
     // informações da imagem sendo processada
     image_infos image_info;
     // quantidade de componentes conexos da imagem
@@ -57,9 +57,7 @@ int Labeler::create_label() {
     for (int i = 0; i < image_info.height; i++) {
         for (int j = 0; j < image_info.width; j++) {
             if (
-                labeled_matrix[i][j] == 0 
-             && image_info.matrix[i][j] == 1
-            ) {
+                labeled_matrix[i][j] == 0 && image_info.matrix[i][j] == 1) {
                 queue_tupla.enqueue({i, j});
                 labeled_matrix[i][j] = rotulo;
 
@@ -72,40 +70,28 @@ int Labeler::create_label() {
 
                     // [x-1][y]
                     if (
-                        x - 1 >= 0 
-                     && labeled_matrix[x - 1][y] == 0 
-                     && image_info.matrix[x - 1][y] == 1
-                    ) {
+                        x - 1 >= 0 && labeled_matrix[x - 1][y] == 0 && image_info.matrix[x - 1][y] == 1) {
                         labeled_matrix[x - 1][y] = rotulo;
                         queue_tupla.enqueue({x - 1, y});
                     }
 
                     // [x+1][y]
                     if (
-                        x + 1 < image_info.height 
-                     && labeled_matrix[x + 1][y] == 0
-                     && image_info.matrix[x + 1][y] == 1
-                    ) {
+                        x + 1 < image_info.height && labeled_matrix[x + 1][y] == 0 && image_info.matrix[x + 1][y] == 1) {
                         labeled_matrix[x + 1][y] = rotulo;
                         queue_tupla.enqueue({x + 1, y});
                     }
 
                     // [x][y-1]
                     if (
-                        y - 1 >= 0 
-                     && labeled_matrix[x][y - 1] == 0
-                     && image_info.matrix[x][y - 1] == 1
-                    ) {
+                        y - 1 >= 0 && labeled_matrix[x][y - 1] == 0 && image_info.matrix[x][y - 1] == 1) {
                         labeled_matrix[x][y - 1] = rotulo;
                         queue_tupla.enqueue({x, y - 1});
                     }
-                    
+
                     // [x][y+1]
                     if (
-                        y + 1 < image_info.width 
-                     && labeled_matrix[x][y + 1] == 0
-                     && image_info.matrix[x][y + 1] == 1
-                    ) {
+                        y + 1 < image_info.width && labeled_matrix[x][y + 1] == 0 && image_info.matrix[x][y + 1] == 1) {
                         labeled_matrix[x][y + 1] = rotulo;
                         queue_tupla.enqueue({x, y + 1});
                     }

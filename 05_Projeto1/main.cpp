@@ -4,8 +4,8 @@
 // Biblioteca para escrita/leitura de arquivos
 #include <fstream>
 
-#include "headers/XMLFileReader.h"
 #include "headers/Labeler.h"
+#include "headers/XMLFileReader.h"
 
 using namespace std;
 using namespace xml;
@@ -31,30 +31,15 @@ int main() {
     XMLFileReader xml_reader = XMLFileReader(xml_string);
 
     if (xml_reader.validate_xml()) {
-        cout << "Arquivo válido" << endl;
         image_infos images_array[xml_reader.count_images()];
         xml_reader.generate_bin_images(images_array);
 
         for (int i = 0; i < xml_reader.count_images(); i++) {
-            cout << images_array[i].name << endl;
-            cout << images_array[i].height << endl;
-            cout << images_array[i].width << endl;
+            Labeler label_teste = Labeler(images_array[i]);
+            int label_img = label_teste.create_label();
 
-            // printa todas imagens lidas do arquivo
-            // for (int j = 0; j < images_array[i].height; j++) {
-            //     for (int k = 0; k < images_array[i].width; k++) {
-            //         cout << images_array[i].matrix[j][k] ;
-            //     }
-            //     cout << endl;
-            // }
+            cout << images_array[i].name << " " << label_img << endl;
         }
-
-    for (int i = 0; i < xml_reader.count_images(); i++) {
-    Labeler label_teste = Labeler(images_array[i]);
-    int label_img1 = label_teste.create_label();
-
-    cout << label_img1 << " regioes" << endl;
-    }
 
     } else {
         cout << "error" << endl;
