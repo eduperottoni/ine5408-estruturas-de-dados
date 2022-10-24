@@ -105,8 +105,7 @@ bool xml::XMLFileReader::validate_xml() {
 void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
     if (validate_xml()) {
         int images_count = count_images();
-        
-        image_infos images[images_count];
+
         size_t pos = 0;
         for (int i = 0; i < images_count; i++) {
             image_infos mx_infos;
@@ -137,8 +136,9 @@ void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
 
             vector[i] = mx_infos;
         }
+    } else {
+        vector = nullptr;
     }
-    vector = nullptr;
 }
 
 string xml::XMLFileReader::catch_inside_tag(const string& start_tag, const string& end_tag, size_t& pos) {
