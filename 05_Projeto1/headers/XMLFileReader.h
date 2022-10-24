@@ -15,20 +15,47 @@ using namespace structures;
 
 namespace xml {
 
-// Classe que lida com o processamento do XML
+
 class XMLFileReader {
  public:
-    // Construtor
+    /*
+        Construtor da classe
+        @param xml: xml em formato string
+    */
     XMLFileReader(const string& xml);
-    // Valida o dataset (1º problema)
+
+    /*
+        Valida o dataset (1º problema)
+        @return bool: se o xml é válido ou não
+    */
     bool validate_xml();
-    // Retorna quantas veze uma tag se repete no xml
+
+    /* 
+        Conta tags no arquivo
+        @param sub: tag a ser pesquisada no xml
+        @return int: quantas vezez a tag se repete no xml
+    */
     int count_tag_occurrance(const string& sub);
-    // Retorna quantas matrizes há no dataset
+
+    /*
+        Conta imagens binárias
+        @return int: quantas matrizes há no dataset
+    */
     int count_images();
-    // Retorna um ponteiro para array de matrizes
+
+    /*
+        Gera as imagens binárias
+        @param vector: vetor a ser preenchido com structs do tipo image_infos geradoss 
+    */
     void generate_bin_images(image_infos* vector);
-    // Pega o que está dentro de dada tag que aparece a partir de uma posição
+
+    /*
+        Lê o conteúdo dentro de uma tag, lida a partir de dada posição
+        @param start_tag: tag de abertura
+        @param end_tag: tag de fechamento
+        @param pos: posição do xml a iniciar a busca (é atualizada após busca)
+        @return string: o que está escrito entre start_tag e end_tag
+    */
     string catch_inside_tag(const string& start_tag, const string& end_tag, size_t& pos);
 
  private:
