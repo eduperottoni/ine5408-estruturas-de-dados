@@ -4,8 +4,8 @@
 // Biblioteca para escrita/leitura de arquivos
 #include <fstream>
 
-#include "headers/Labeler.h"
-#include "headers/XMLFileReader.h"
+#include "Labeler.h"
+#include "XMLFileReader.h"
 
 using namespace std;
 using namespace xml;
@@ -15,7 +15,6 @@ int main() {
 
     // Leitura do arquivo
     cin >> xmlfilename;
-    xmlfilename = "datasets/dataset" + xmlfilename + ".xml";
     ifstream xml_file(xmlfilename);
     string xml_string;
     string line;
