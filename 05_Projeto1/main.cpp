@@ -1,11 +1,14 @@
+// Copyright [2022] 
+// <Caio Prá e Eduardo Perottoni>
+
 #include <iostream>
 #include <string>
 
 // Biblioteca para escrita/leitura de arquivos
 #include <fstream>
 
-#include "Labeler.h"
-#include "XMLFileReader.h"
+#include "headers/Labeler.h"
+#include "headers/XMLFileReader.h"
 
 using namespace std;
 using namespace xml;

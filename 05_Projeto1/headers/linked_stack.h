@@ -1,4 +1,5 @@
-// COPYRIGHT [2022] EDUARDO PEROTTONI
+// Copyright [2022] 
+// <Caio Prá e Eduardo Perottoni>
 
 #ifndef STRUCTURES_LINKED_STACK_H
 #define STRUCTURES_LINKED_STACK_H

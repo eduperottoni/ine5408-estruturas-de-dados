@@ -1,3 +1,6 @@
+// Copyright [2022] 
+// <Caio Prá e Eduardo Perottoni>
+
 #ifndef IMAGE_INFOS_H
 #define IMAGE_INFOS_H
 

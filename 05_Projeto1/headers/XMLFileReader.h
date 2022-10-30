@@ -1,4 +1,5 @@
-// @ COPYRIGHT [2022] <Eduardo Perottoni e Caio Prá>
+// Copyright [2022] 
+// <Caio Prá e Eduardo Perottoni>
 
 #ifndef XMLFILEREADER_H
 #define XMLFILEREADER_H
@@ -136,9 +137,8 @@ void xml::XMLFileReader::generate_bin_images(image_infos* vector) {
 
             vector[i] = mx_infos;
         }
-    } else {
-        vector = nullptr;
     }
+    vector = nullptr;
 }
 
 string xml::XMLFileReader::catch_inside_tag(const string& start_tag, const string& end_tag, size_t& pos) {

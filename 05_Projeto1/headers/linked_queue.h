@@ -1,4 +1,5 @@
-// COPYRIGHT [2022] Caio Prá Silva
+// Copyright [2022] 
+// <Caio Prá e Eduardo Perottoni>
 
 #ifndef STRUCTURES_LINKED_QUEUE_H
 #define STRUCTURES_LINKED_QUEUE_H

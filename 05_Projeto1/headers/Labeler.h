@@ -1,4 +1,5 @@
-// @ COPYRIGHT [2022] <Eduardo Perottoni, Caio Prá>
+// Copyright [2022] 
+// <Caio Prá e Eduardo Perottoni>
 
 #ifndef LABELER_H
 #define LABELER_H
