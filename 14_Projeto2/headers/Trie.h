@@ -39,10 +39,12 @@ class Trie {
     tuple<size_t, size_t> search(string& string); 
 
     /**
-     * @brief Busca uma palavra na Trie
-     * @param word Palavra a ser escontrada na árvore
-     * 
+     * @brief Conta de quantas palavras a palavra dada é prefixo
+     * @param prefix Palavra prefixo
+     * @return size_t com quantidade de palavras cujo prefix é prefixo
     */
+    size_t count_prefixed_words(string& prefix);
+   
  private:
     class TrieNode{
      public:
@@ -104,6 +106,24 @@ class Trie {
         void set_line_length(size_t& new_length) {
             line_length = new_length;
         }
+
+        /**
+         * @brief Conta quantas palavras estão abaixo do TrieNode que invoca o método
+         * @return size_t com o número de palavras abaixo do node
+        */
+        size_t count_words_below() {
+            size_t counted_words = 0;
+            for (int i = 0; i < ALPHABET_SIZE; i++) {
+                if (children[i]) {
+                    // Se filho é final de palavra
+                    if (!children[i] -> get_length())
+                        counted_words++;
+                    counted_words += children[i] -> count_words_below();
+                }
+            }
+            return counted_words;
+        }
+
      private:
         TrieNode* children[ALPHABET_SIZE];
         size_t dict_index{0}, line_length{0};
@@ -163,4 +183,8 @@ tuple<size_t, size_t> structures::Trie::search(string& word) {
     get<0>(res) = current -> get_dict_index();
     get<1>(res) = current -> get_length();
     return res;
+}
+
+size_t structures::Trie::count_prefixed_words(string& prefix) {
+    
 }
