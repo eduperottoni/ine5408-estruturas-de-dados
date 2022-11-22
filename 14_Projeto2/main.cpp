@@ -44,7 +44,9 @@ int main() {
     string word = "bear";
     cout << "Buscando palavra\n";
     cout << "Índice da palavra: " << get<0>(trie.search(word)) << "\n";
+    word = "derrocaram";
     cout << "Comprimento da linha da palavra: " << get<1>(trie.search(word)) << "\n";
+    cout << word << " é prefixo de " << trie.count_prefixed_words(word) << endl;
 
     return 0;
 }
