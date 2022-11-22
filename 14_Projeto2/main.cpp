@@ -1,5 +1,6 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
+
 #include "headers/Trie.h"
 
 int main() {
@@ -16,16 +17,16 @@ int main() {
     string line;
     if (dict.is_open()) {
         size_t next_position = 0;
-        while(getline(dict, line)) {
+        while (getline(dict, line)) {
             string current_word;
             // Caso a linha atual não seja início de palavra
             // if (line[0] != '[') {
             //     next_position += line.length() + 1;
             //     continue;
             // }
-            //Caso a linha atual seja início de palavra
+            // Caso a linha atual seja início de palavra
             for (int i = 1; i < line.length(); i++) {
-                //Caso palavra tenha acabado
+                // Caso palavra tenha acabado
                 if (line[i] == ']')
                     break;
                 current_word += line[i];
@@ -40,7 +41,7 @@ int main() {
     }
 
     // Teste do método search
-    string word = "be";
+    string word = "bear";
     cout << "Buscando palavra\n";
     cout << "Índice da palavra: " << get<0>(trie.search(word)) << "\n";
     cout << "Comprimento da linha da palavra: " << get<1>(trie.search(word)) << "\n";
