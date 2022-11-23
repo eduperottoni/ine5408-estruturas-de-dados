@@ -3,17 +3,39 @@
 
 #include "headers/Trie.h"
 
+using namespace structures;
+
+Trie trie = Trie();
+
+// função auxiliar para realizar os prints das palavras passadas
+void word_prints(string& word) {
+    int prefix_amout = trie.count_prefixed_words(word);
+    if (prefix_amout > 0) {
+        cout << word << " is prefix of " << prefix_amout << " words" << endl;
+    } else {
+        cout << word << " is not prefix" << endl;
+        return;
+    }
+    
+    tuple<size_t, size_t> tupla_busca = trie.search(word);
+    
+    if (get<0>(tupla_busca) > 0 && get<1>(tupla_busca) > 0) {
+        cout << word << " is at (" << get<0>(tupla_busca) <<"," << get<1>(tupla_busca) << ")" << endl;
+    }
+}
+
+// função principal do programa
 int main() {
-    using namespace structures;
-    using namespace std;
 
-    string dict_filename;
+    string input_string, file_name;
+    getline(cin, input_string);  // entrada
+    cout << input_string << endl;    
 
-    cin >> dict_filename;  // entrada
+    // posição 10 deve ser o número do arquivo
+    int file_number = int(input_string[10]) - 48;
+    file_name = "dictionaries/dicionario" + to_string(file_number) + ".dic";
 
-    dict_filename = "dictionaries/dicionario" + dict_filename + ".dic";
-    ifstream dict(dict_filename);
-    Trie trie = Trie();
+    ifstream dict(file_name);
     string line;
     if (dict.is_open()) {
         size_t next_position = 0;
@@ -31,22 +53,37 @@ int main() {
                     break;
                 current_word += line[i];
             }
+            // caso a palavra informada esteja no dicionário
             trie.insert(current_word, line.length(), next_position);
+
             next_position += line.length() + 1;
         }
         dict.close();
     } else {
-        cout << "Não é possível ler o arquivo";
+        cout << "Não é possível ler o arquivo" << endl;
         return 0;
     }
 
-    // Teste do método search
-    string word = "bear";
-    cout << "Buscando palavra\n";
-    cout << "Índice da palavra: " << get<0>(trie.search(word)) << "\n";
-    word = "derrocaram";
-    cout << "Comprimento da linha da palavra: " << get<1>(trie.search(word)) << "\n";
-    cout << word << " é prefixo de " << trie.count_prefixed_words(word) << endl;
+    input_string.erase(0, 16);
+    // input pra teste: dicionario1.dic bear bell bid bu bull buy but sell stock stop 0
+    string word = "";
+    while (true) { 
+        for (auto x: input_string) {
+            if (x == ' ') {
+                tuple<size_t, size_t> palavra = trie.search(word);
+                word_prints(word);
+                word = "";
+            } else {
+                word += x;
+            }
+        }
+        if (word == "0") {
+            break;
+        }
+
+        word_prints(word);
+        break;  
+    }
 
     return 0;
 }

@@ -198,7 +198,6 @@ void structures::Trie::insert(string& word, size_t line_size, size_t dict_index)
     current_node->set_dict_index(dict_index);
     current_node->set_line_length(line_size);
     current_node->set_is_final_node(true);
-    cout << "Palavra " << word << " inserida!\n";
 }
 
 tuple<size_t, size_t> structures::Trie::search(string& word) {
