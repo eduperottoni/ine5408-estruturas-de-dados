@@ -251,6 +251,9 @@ size_t structures::Trie::count_prefixed_words(string& prefix) {
     for (int i = 0; i < ALPHABET_SIZE; i++) {
         if (last_letter->get_children(i)) {
             prefix_count += last_letter->get_children(i)->count_words_below();
+            if (last_letter->get_children(i)->get_is_final_node()) {
+                prefix_count++;
+            }
         }
     }
     // se o prefixo for uma palavra, conta como prefixo

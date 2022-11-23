@@ -19,7 +19,7 @@ void word_prints(string& word) {
     
     tuple<size_t, size_t> tupla_busca = trie.search(word);
     
-    if (get<0>(tupla_busca) > 0 && get<1>(tupla_busca) > 0) {
+    if (get<1>(tupla_busca) > 0) {
         cout << word << " is at (" << get<0>(tupla_busca) <<"," << get<1>(tupla_busca) << ")" << endl;
     }
 }
@@ -29,7 +29,6 @@ int main() {
 
     string input_string, file_name;
     getline(cin, input_string);  // entrada
-    cout << input_string << endl;    
 
     // posição 10 deve ser o número do arquivo
     int file_number = int(input_string[10]) - 48;
